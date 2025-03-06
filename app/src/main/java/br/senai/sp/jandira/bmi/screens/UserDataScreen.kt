@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.bmi.R
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun UserDataScreen(modifier: Modifier = Modifier) {
 
     var nameState by remember { mutableStateOf("") }
 
@@ -39,76 +39,27 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 )
             )
     ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-            Image(
-                painter = painterResource(R.drawable.fitness),
-                contentDescription = "",
-                modifier = Modifier.padding(top = 32.dp)
-            )
-            Text(
-                text = stringResource(R.string.welcome),
-                fontSize = 28.sp,
-                color = Color.White,
-                fontWeight = FontWeight.ExtraBold
-            )
+        Column(){
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 20.dp, vertical = 30.dp),
+            ){
+                Text(
+                    text = stringResource(R.string.hi),
+                    fontSize = 28.sp,
+                    color = Color.White,
+                    fontWeight = FontWeight.ExtraBold
+                )
+            }
             Card(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(500.dp),
+                    .fillMaxSize(),
                 shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp)
             ) {
-                Box(
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(16.dp),
-                    ) {
-                        Text(
-                            text = stringResource(R.string.your_name),
-                            fontSize = 22.sp,
-                            fontWeight = FontWeight.ExtraBold,
-                        )
-                        TextField(
-                            value = nameState,
-                            onValueChange = { nameState = it},
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = Icons.Default.DriveFileRenameOutline,
-                                    contentDescription = "",
-                                )
-                            },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 8.dp),
-                            label = {},
-                            colors = TextFieldDefaults.colors(
-                                focusedContainerColor = Color(0xFFE0E0E0),
-                                unfocusedContainerColor = Color(0xFFF5F5F5),
-                                disabledContainerColor = Color(0xFFF5F5F5)
-                            ),
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = KeyboardType.Text,
-                                capitalization = KeyboardCapitalization.Words
-                            )
-                        )
-                    }
-
-                    Button(
-                        onClick = {},
-                        modifier = Modifier
-                            .align(Alignment.BottomEnd)
-                            .padding(end = 16.dp, bottom = 16.dp)
-                    ) {
-                        Text(text = stringResource(R.string.next))
-                    }
-                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ){}
             }
         }
     }
@@ -116,6 +67,6 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-private fun HomeScreenPreview() {
-    HomeScreen()
+private fun UserDataScreenPreview() {
+    UserDataScreen()
 }
