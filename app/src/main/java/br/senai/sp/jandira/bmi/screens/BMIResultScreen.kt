@@ -37,6 +37,7 @@ import br.senai.sp.jandira.bmi.R
 
 @Composable
 fun BMIResultScreen() {
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -216,7 +217,10 @@ fun BMIResultScreen() {
                         }
                         Column(
                             modifier = Modifier
-                                .height(340.dp)
+                                .height(400.dp)
+                                .fillMaxWidth()
+                                .padding(15.dp)
+                                .background(Color.Black)
                         ){
 
                         }

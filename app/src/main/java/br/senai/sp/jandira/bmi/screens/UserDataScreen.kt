@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.bmi.screens
 
+import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -10,28 +11,44 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
 
 @Composable
-fun UserDataScreen() {
+fun UserDataScreen(navegacao: NavHostController?) {
+
+    var ageInt = remember {
+        mutableStateOf("")
+    }
+
+    var weightFloat = remember {
+        mutableStateOf("")
+    }
+
+    var heightFloat = remember {
+        mutableStateOf("")
+    }
+
+
+    //Abrir ou fechar um arquivo do tipo SharedPreferences
+    val context = LocalContext.current
+    val userFile = context.getSharedPreferences("user_file", Context.MODE_PRIVATE)
+    val userName = userFile.getString("user_name" ,"")
+
+
+    val editor = userFile.edit()
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                brush = Brush.linearGradient(
-                    listOf(Color(0xFFFF6347),
-                        Color(0xFF2707C9),
-                        Color(0xFFFF6347))
-                )
+            .background(Color(color = 0xff99C375)
             )
     ) {
         Column{
@@ -40,9 +57,9 @@ fun UserDataScreen() {
                     .padding(horizontal = 18.dp, vertical = 30.dp),
             ){
                 Text(
-                    text = stringResource(R.string.hi),
+                    text = stringResource(R.string.hi) + ", $userName !",
                     fontSize = 28.sp,
-                    color = Color.White,
+                    color = Color.Black,
                     fontWeight = FontWeight.ExtraBold
                 )
             }
@@ -125,7 +142,7 @@ fun UserDataScreen() {
                                 .width(150.dp)
                             ,
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = Color(0xFFEE01FF)
+                                containerColor = Color(0xff469488)
                             )
                         ) {
                             Text(text = stringResource(R.string.genderW),
@@ -146,9 +163,9 @@ fun UserDataScreen() {
                                 .width(340.dp)
                             ,
                             shape = RoundedCornerShape(size = 15.dp),
-                            value = "",
+                            value = ageInt.value,
                             onValueChange = {
-
+                                ageInt.value = it
                             },
                             label = {
                                 Text(
@@ -172,9 +189,9 @@ fun UserDataScreen() {
                                 .width(340.dp)
                             ,
                             shape = RoundedCornerShape(size = 15.dp),
-                            value = "",
+                            value = weightFloat.value,
                             onValueChange = {
-
+                                weightFloat.value = it
                             },
                             label = {
                                 Text(
@@ -198,9 +215,9 @@ fun UserDataScreen() {
                                 .width(340.dp)
                             ,
                             shape = RoundedCornerShape(size = 15.dp),
-                            value = "",
+                            value = heightFloat.value,
                             onValueChange = {
-
+                                heightFloat.value = it
                             },
                             label = {
                                 Text(
@@ -219,7 +236,19 @@ fun UserDataScreen() {
                             }
                         )
                         Button(
-                            onClick = {},
+                            onClick = {
+                                val age = ageInt.value
+                                val weight = weightFloat.value.toFloat()
+                                val height = heightFloat.value.toFloat()
+
+                                editor.putString("user_age", age)
+                                editor.putFloat("user_weight", weight)
+                                editor.putFloat("user_height", height)
+
+                                editor.apply()
+
+                                navegacao?.navigate(route = "bmi_result")
+                            },
                             modifier = Modifier
                                 .height(70.dp)
                                 .width(340.dp)
@@ -227,7 +256,7 @@ fun UserDataScreen() {
                             ,
                             shape = RoundedCornerShape(size = 15.dp),
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = Color(0xFFEE1FF8)
+                                containerColor = Color(0xFF469488)
                             )
                         ) {
                             Text(text = stringResource(R.string.calculate),
@@ -243,5 +272,5 @@ fun UserDataScreen() {
 @Preview
 @Composable
 private fun UserDataScreenPreview() {
-    UserDataScreen()
+    UserDataScreen(null)
 }

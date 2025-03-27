@@ -3,18 +3,18 @@
     <string name="welcome">Bem-vindo!</string>
     <string name="your_name">Qual é o seu nome?</string>
     <string name="next">Próximo</string>
-    <string name="hi">Hi !</string>
+    <string name="hi">Oi</string>
     <string name="genderM">Homem</string>
     <string name="genderW">Mulher</string>
     <string name="age">Idade</string>
     <string name="weight">Peso</string>
     <string name="height">Altura</string>
     <string name="calculate">Calcular</string>
-    <string name="bmi_result">Your BMI Result</string>
+    <string name="bmi_result">Seu resultado de IMC</string>
     <string name="number_bmi">30,6</string>
-    <string name="bmi_class">You have Class I Obesity</string>
+    <string name="bmi_class">Você tem obesidade classe I</string>
     <string name="ex_age">50</string>
     <string name="ex_weight">97 Kg</string>
     <string name="ex_high">178 cm</string>
-    <string name="new_calc">New Calc</string>
+    <string name="new_calc">Novo cálculo</string>
 </resources>

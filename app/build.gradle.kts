@@ -62,4 +62,7 @@ dependencies {
 
     // Libs Extras
     implementation(libs.androidx.material.icons.extended.android)
+
+    // Libs para navegação de telas
+    implementation(libs.androidx.navigation.compose)
 }

@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.bmi.screens
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -21,12 +23,23 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(navegacao: NavHostController?) {
 
-    var nameState by remember { mutableStateOf("") }
+    var nameState = remember {
+        mutableStateOf("")
+    }
+
+
+    //Abrir ou fechar um arquivo do tipo SharedPreferences
+    val context = LocalContext.current
+    val userFile = context.getSharedPreferences("user_file", Context.MODE_PRIVATE)
+
+
+    val editor = userFile.edit()
 
     Box(
         modifier = Modifier
@@ -73,11 +86,13 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                         Text(
                             text = stringResource(R.string.your_name),
                             fontSize = 22.sp,
-                            fontWeight = FontWeight.ExtraBold,
+                            fontWeight = FontWeight.Medium,
                         )
                         TextField(
-                            value = nameState,
-                            onValueChange = { nameState = it},
+                            value = nameState.value,
+                            onValueChange = {
+                                nameState.value = it
+                                            },
                             leadingIcon = {
                                 Icon(
                                     imageVector = Icons.Default.DriveFileRenameOutline,
@@ -87,7 +102,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(top = 8.dp),
-                            label = {},
+                            label = {Text("Digite seu nome")},
                             colors = TextFieldDefaults.colors(
                                 focusedContainerColor = Color(0xFFE0E0E0),
                                 unfocusedContainerColor = Color(0xFFF5F5F5),
@@ -96,12 +111,17 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                             keyboardOptions = KeyboardOptions(
                                 keyboardType = KeyboardType.Text,
                                 capitalization = KeyboardCapitalization.Words
-                            )
+                            ),
+
                         )
                     }
 
                     Button(
-                        onClick = {},
+                        onClick = {
+                            editor.putString("user_name", nameState.value)
+                            editor.apply()
+                            navegacao?.navigate(route = "user_data")
+                        },
                         modifier = Modifier
                             .align(Alignment.BottomEnd)
                             .padding(end = 16.dp, bottom = 16.dp)
@@ -114,8 +134,9 @@ fun HomeScreen(modifier: Modifier = Modifier) {
     }
 }
 
+
 @Preview
 @Composable
 private fun HomeScreenPreview() {
-    HomeScreen()
+    HomeScreen(null)
 }
