@@ -17,4 +17,11 @@
     <string name="ex_weight">97 Kg</string>
     <string name="ex_high">178 cm</string>
     <string name="new_calc">Nouveau calcul</string>
+
+    <string name="under_weight">Vous êtes en dessous de votre poids idéal!</string>
+    <string name="normal_weight">Vous avez un poids corporel normal!</string>
+    <string name="over_weight">Vous êtes légèrement en surpoids!</string>
+    <string name="class1_weight">Vous souffrez d’obésité de classe I!</string>
+    <string name="class2_weight">Vous souffrez d’obésité de classe II!</string>
+    <string name="class3_weight">Vous souffrez d’obésité de classe III!</string>
 </resources>

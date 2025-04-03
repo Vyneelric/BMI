@@ -24,27 +24,24 @@ import br.senai.sp.jandira.bmi.R
 
 @Composable
 fun UserDataScreen(navegacao: NavHostController?) {
-
-    var ageInt = remember {
-        mutableStateOf("")
-    }
-
-    var weightFloat = remember {
-        mutableStateOf("")
-    }
-
-    var heightFloat = remember {
-        mutableStateOf("")
-    }
-
-
     //Abrir ou fechar um arquivo do tipo SharedPreferences
     val context = LocalContext.current
     val userFile = context.getSharedPreferences("user_file", Context.MODE_PRIVATE)
     val userName = userFile.getString("user_name" ,"")
 
+    
+    val ageState = remember{
+        mutableStateOf("")
+    }
 
-    val editor = userFile.edit()
+    val weightState = remember{
+        mutableStateOf("")
+    }
+
+    val heightState = remember{
+        mutableStateOf("")
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -163,9 +160,9 @@ fun UserDataScreen(navegacao: NavHostController?) {
                                 .width(340.dp)
                             ,
                             shape = RoundedCornerShape(size = 15.dp),
-                            value = ageInt.value,
+                            value = ageState.value,
                             onValueChange = {
-                                ageInt.value = it
+                                ageState.value = it
                             },
                             label = {
                                 Text(
@@ -189,9 +186,9 @@ fun UserDataScreen(navegacao: NavHostController?) {
                                 .width(340.dp)
                             ,
                             shape = RoundedCornerShape(size = 15.dp),
-                            value = weightFloat.value,
+                            value = weightState.value,
                             onValueChange = {
-                                weightFloat.value = it
+                                weightState.value = it
                             },
                             label = {
                                 Text(
@@ -215,9 +212,9 @@ fun UserDataScreen(navegacao: NavHostController?) {
                                 .width(340.dp)
                             ,
                             shape = RoundedCornerShape(size = 15.dp),
-                            value = heightFloat.value,
+                            value = heightState.value,
                             onValueChange = {
-                                heightFloat.value = it
+                                heightState.value = it
                             },
                             label = {
                                 Text(
@@ -237,13 +234,11 @@ fun UserDataScreen(navegacao: NavHostController?) {
                         )
                         Button(
                             onClick = {
-                                val age = ageInt.value
-                                val weight = weightFloat.value.toFloat()
-                                val height = heightFloat.value.toFloat()
+                                val editor = userFile.edit()
 
-                                editor.putString("user_age", age)
-                                editor.putFloat("user_weight", weight)
-                                editor.putFloat("user_height", height)
+                                editor.putInt("user_age", ageState.value.toInt())
+                                editor.putFloat("user_weight", weightState.value.toFloat())
+                                editor.putFloat("user_height", heightState.value.toFloat())
 
                                 editor.apply()
 

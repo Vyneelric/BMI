@@ -102,7 +102,6 @@ fun HomeScreen(navegacao: NavHostController?) {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(top = 8.dp),
-                            label = {Text("Digite seu nome")},
                             colors = TextFieldDefaults.colors(
                                 focusedContainerColor = Color(0xFFE0E0E0),
                                 unfocusedContainerColor = Color(0xFFF5F5F5),
