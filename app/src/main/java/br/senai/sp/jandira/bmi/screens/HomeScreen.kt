@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,11 +46,7 @@ fun HomeScreen(navegacao: NavHostController?) {
         modifier = Modifier
             .fillMaxSize()
             .background(
-                brush = Brush.linearGradient(
-                    listOf(Color(0xFFFF6347),
-                           Color(0xFF2707C9),
-                           Color(0xFFFF6347))
-                )
+                color = Color(0xff99D06E)
             )
     ) {
         Column(
@@ -66,7 +63,7 @@ fun HomeScreen(navegacao: NavHostController?) {
             Text(
                 text = stringResource(R.string.welcome),
                 fontSize = 28.sp,
-                color = Color.White,
+                color = Color.Black,
                 fontWeight = FontWeight.ExtraBold
             )
             Card(
@@ -81,7 +78,7 @@ fun HomeScreen(navegacao: NavHostController?) {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(16.dp),
+                            .padding(20.dp),
                     ) {
                         Text(
                             text = stringResource(R.string.your_name),
@@ -109,7 +106,8 @@ fun HomeScreen(navegacao: NavHostController?) {
                             ),
                             keyboardOptions = KeyboardOptions(
                                 keyboardType = KeyboardType.Text,
-                                capitalization = KeyboardCapitalization.Words
+                                capitalization = KeyboardCapitalization.Words,
+                                imeAction = ImeAction.Done
                             ),
 
                         )
