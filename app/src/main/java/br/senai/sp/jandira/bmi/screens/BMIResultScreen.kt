@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,6 +37,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
 import br.senai.sp.jandira.bmi.calcs.bmiCalulate
+import br.senai.sp.jandira.bmi.model.BMIStatus
+import br.senai.sp.jandira.bmi.screens.components.BmiLevel
 import br.senai.sp.jandira.bmi.utils.numberConvertLocale
 
 @Composable
@@ -233,11 +236,47 @@ fun BMIResultScreen(navegacao: NavHostController?) {
                         }
                         Column(
                             modifier = Modifier
-                                .height(400.dp)
+                                .height(380.dp)
                                 .fillMaxWidth()
-                                .padding(15.dp)
-                                .background(Color.Black)
+                                .padding(start = 20.dp, top = 40.dp, end = 20.dp),
+                            verticalArrangement = Arrangement.Center
                         ){
+                            BmiLevel(
+                                leftText = "Underweight",
+                                rightText = "< 18.5",
+                                bulletColor = colorResource(R.color.light_blue),
+                                background = if (result.status == BMIStatus.UNDER_WEIGHT) colorResource(R.color.light_blue) else Color.Transparent
+                            )
+                            BmiLevel(
+                                leftText = "Normal",
+                                rightText = "18.6 - 24.9",
+                                bulletColor = colorResource(R.color.light_green),
+                                background = if (result.status == BMIStatus.NORMAL) colorResource(R.color.light_green) else Color.Transparent
+                            )
+                            BmiLevel(
+                                leftText = "Overweight",
+                                rightText = "25.0 - 29.9",
+                                bulletColor = colorResource(R.color.yellow),
+                                background = if (result.status == BMIStatus.OVER_WEIGHT) colorResource(R.color.yellow) else Color.Transparent
+                            )
+                            BmiLevel(
+                                leftText = "Obesity Class I",
+                                rightText = "30.0 - 34.9",
+                                bulletColor = colorResource(R.color.light_orange),
+                                background = if (result.status == BMIStatus.OBESITY_1) colorResource(R.color.light_orange) else Color.Transparent
+                            )
+                            BmiLevel(
+                                leftText = "Obesity Class II",
+                                rightText = "35.0 - 39.9",
+                                bulletColor = colorResource(R.color.dark_orange),
+                                background = if (result.status == BMIStatus.OBESITY_2) colorResource(R.color.dark_orange) else Color.Transparent
+                            )
+                            BmiLevel(
+                                leftText = "Obesity Class III",
+                                rightText = "> 39.9",
+                                bulletColor = colorResource(R.color.light_red),
+                                background = if (result.status == BMIStatus.OBESITY_3) colorResource(R.color.light_red) else Color.Transparent
+                            )
 
                         }
                         Column(
@@ -255,9 +294,9 @@ fun BMIResultScreen(navegacao: NavHostController?) {
                         Button(
                             onClick = {},
                             modifier = Modifier
-                                .height(90.dp)
+                                .height(70.dp)
                                 .width(340.dp)
-                                .padding(top = 40.dp)
+                                .padding(top = 20.dp)
                             ,
                             shape = RoundedCornerShape(size = 15.dp),
                             colors = ButtonDefaults.buttonColors(
